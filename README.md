@@ -1,0 +1,31 @@
+# macro-expander.rs
+A proc macro for debugging proc macros, placing output in a file to give precise errors".
+
+Currently implemented in terms of the [expander] crate, where the idea originated from.
+
+[expander]: https://github.com/drahnr/expander
+
+## Example
+Add the following dependency to your proc macro crate.
+```toml
+[dependencies]
+macro-expander = { version = "0.1", features = ["enable"] }
+```
+
+Then wrap your macro with `#[debug_expand_macro]`:
+```rust
+#[proc_macro_derive(Visit)]
+#[macro_expander::debug_expand_macro]
+fn derive_visit(input: TokenStream) -> TokenStream {
+    ...
+}
+```
+
+If your macro gives errors you can set `MACRO_EXPANDER_DEBUG=1` and errors will point to a specific location in a file rather than to just the macro invocation.
+
+If your macro gives a `compile_error!`, no file is actually used, as that could make error messages lose span information.
+
+## License
+Licensed under either the [Apache 2.0 License](./LICENSE-APACHE.txt) or [MIT License](./LICENSE-MIT.txt) at your option.
+
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in this project by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any additional terms or conditions.

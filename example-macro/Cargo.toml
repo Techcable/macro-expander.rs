@@ -1,0 +1,25 @@
+[package]
+name = "example-macro"
+description = "Example of using `macro-expander`"
+version = "0.0.0"
+publish = false
+edition = "2024"
+authors.workspace = true
+repository.workspace = true
+readme.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "2"
+proc-macro2 = "1"
+quote = "1"
+
+[dependencies.macro-expander]
+path = "../macro-expander"
+version = "0.1"
+
+[features]
+default = ["enable"]
+enable = ["macro-expander/enable"]
