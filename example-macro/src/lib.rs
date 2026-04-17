@@ -6,6 +6,16 @@ use quote::{quote, quote_spanned};
 
 #[proc_macro]
 #[debug_expand_macro]
+pub fn add7(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let input = TokenStream::from(input);
+    if input.is_empty() {
+        return quote!(compile_error!("An argument must be passed")).into();
+    }
+    quote!(#input + 7).into()
+}
+
+#[proc_macro]
+#[debug_expand_macro]
 pub fn awesome_type(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = TokenStream::from(input);
     use syn::spanned::Spanned;

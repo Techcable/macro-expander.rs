@@ -1,7 +1,7 @@
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
-use proc_macro2::TokenStream as TokenStream2;
+use proc_macro2::{Delimiter, TokenStream as TokenStream2, TokenTree};
 
 pub fn debug_expand_simple(macro_name: &str, stream: TokenStream) -> TokenStream {
     debug_expand_simple2(macro_name, stream.into()).into()
@@ -15,11 +15,22 @@ pub fn debug_expand_simple2(macro_name: &str, stream: TokenStream2) -> TokenStre
     // TODO: Add option to support expressions (right now expander always uses semicolon after include)
     if is_macro_debug_enabled(macro_name) {
         let id = format!("{macro_name}-{uid}", uid = rand_uid());
-        expander::Expander::new(&id)
+        let tokens = expander::Expander::new(&id)
             .fmt_full(expander::Channel::default(), expander::Edition::_2021, true)
             .dry(has_compile_error(stream.clone()))
             .write_to_out_dir(stream)
-            .unwrap_or_else(|e| panic!("failed to expand {macro_name:?} to file: {e}"))
+            .unwrap_or_else(|e| panic!("failed to expand {macro_name:?} to file: {e}"));
+        let mut tokens = tokens.into_iter().collect::<Vec<_>>();
+        let semi = tokens.pop().unwrap();
+        assert!(matches!(semi, TokenTree::Punct(punct) if punct.as_char() == ';'));
+        let group = tokens.pop().unwrap();
+        let TokenTree::Group(group) = group else {
+            panic!("{group:?}")
+        };
+        assert_eq!(group.delimiter(), Delimiter::Parenthesis);
+        let inner = group.stream();
+        tokens.extend(quote::quote!({ #inner }));
+        tokens.into_iter().collect()
     } else {
         stream
     }
