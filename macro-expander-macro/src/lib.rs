@@ -32,7 +32,7 @@ mod debug_expand {
     use syn::parse_quote;
     use syn_mid::ItemFn;
 
-    const MACRO_NAME: &str = "macro_debug_expand";
+    const MACRO_NAME: &str = "debug_expand_macro";
     pub fn expand(attrs: TokenStream, input: TokenStream) -> syn::Result<TokenStream> {
         if !attrs.is_empty() {
             return Err(syn::Error::new_spanned(
