@@ -32,7 +32,7 @@
 #[cfg(feature = "enable")]
 mod runtime;
 
-#[cfg(feature = "enable")]
+#[cfg(feature = "macro")]
 pub use macro_expander_macro::debug_expand_macro;
 
 #[cfg(feature = "enable")]

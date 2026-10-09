@@ -18,6 +18,10 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 ### Fixed
 - Correct LICENSE file to match README & Cargo.toml (qtssxqyq)
   - Accidentally used the license file from [unicodeit.rs](https://github.com/Techcable/unicodeit.rs/blob/v0.2.1/LICENSE.md) before this.
+- Export the `#[debug_expand_macro]` fallback from `macro_expander` (mxnnnszo)
+  - This means you can use `#[macro_expander::debug_expand_macro]` even when the `"macro-expander/enable"` feature is not enabled
+  - The fallback implementation avoids any dependencies on `syn` or `proc-macro2`, and will just leave your code alone without doing any debug expansion.
+  - The fallback implementation still requires the `"macro-expander/macro"` feature to be enabled.
 
 ## 0.1.0 - 2026-04-16
 Initial release.
