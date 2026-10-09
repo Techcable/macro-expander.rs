@@ -3,6 +3,7 @@ resolver = "2"
 members = ["example-macro", "macro-expander", "macro-expander-macro"]
 
 [workspace.package]
+# Update pinned dependency version when this changes
 version = "0.1.1"
 authors = ["Techcable <git@techcable.net>"]
 edition = "2021"
@@ -22,6 +23,12 @@ categories = [
     "development-tools::debugging",
     "development-tools::procedural-macro-helpers",
 ]
+
+[workspace.dependencies.macro-expander-macro]
+path = "./macro-expander-macro"
+# the macro and runtime versions need to change in lockstep,
+# so that the macro can safely rely on runtime internals
+version = "=0.1.1"
 
 [workspace.lints.clippy]
 ## groups ##

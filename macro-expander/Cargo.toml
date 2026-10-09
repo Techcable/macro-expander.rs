@@ -24,8 +24,7 @@ default-features = false
 optional = true
 
 [dependencies.macro-expander-macro]
-path = "../macro-expander-macro"
-version = "0.1"
+workspace = true
 optional = true
 
 [build-dependencies]
