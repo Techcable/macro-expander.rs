@@ -52,6 +52,7 @@ pub fn debug_expand_simple2(macro_name: &str, stream: TokenStream2) -> TokenStre
     //
     // TODO: Add option to support expressions (right now expander always uses semicolon after include)
     if is_macro_debug_enabled(macro_name) {
+        // This random uid is added to workaround a history of cache invalidation issues
         let id = format!("{macro_name}-{uid}", uid = rand_uid());
         expander::Expander::new(&id)
             .fmt_full(expander::Channel::default(), expander::Edition::_2021, true)
