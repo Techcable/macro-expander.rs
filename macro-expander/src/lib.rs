@@ -27,6 +27,7 @@
 //! If your macro gives a [`compile_error!`], no file is actually used,
 //! as that could make error messages lose span information.
 
+#![deny(missing_docs)]
 #![cfg_attr(has_tracked_env_var, feature(proc_macro_tracked_env))]
 
 #[cfg(feature = "enable")]

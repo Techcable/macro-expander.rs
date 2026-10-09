@@ -17,6 +17,10 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 
 ### Added
 - Improve crate-level docs by syncing with `README.md` (qwokxwsr)
+- Add docs to all public functions in `macro-expander` (yxuyxklx)
+  - Set `#[deny(missing_docs)]` so we don't forget docs in the future
+  - Document the `MACRO_EXPANDER_DEBUG` syntax under `#[debug_expand_macro]`
+  - Document that `#[proc_macro]` is only supported for macros expanding to items
 
 ### Fixed
 - Fix optional dependency feature resolution on Cargo 1.64 (tmvrzrlo)

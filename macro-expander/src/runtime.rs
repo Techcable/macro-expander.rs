@@ -3,13 +3,51 @@ extern crate proc_macro;
 use proc_macro::TokenStream;
 use proc_macro2::TokenStream as TokenStream2;
 
+/// Write the output of a proc macro to a file, if debug expansion is enabled for it.
+///
+/// This is what [`#[debug_expand_macro]`](crate::debug_expand_macro) calls on the result of the function.
+///
+/// If [`is_macro_debug_enabled`] returns `true` for `macro_name`,
+/// `stream` is written to a temporary file and an `include!` of that file is returned.
+/// Compiler errors in the generated code then point to a line in that file
+/// rather than somewhere in the macro invocation.
+/// This will only happen if the `MACRO_EXPANDER_DEBUG` environment variable enables debug expansion
+/// for the macro and the `macro-expander/enable` cargo feature is enabled.
+/// See [`#[debug_expand_macro]`](crate::debug_expand_macro#macro_expander_debug) for the
+/// environment variable syntax.
+///
+/// If [`is_macro_debug_enabled`] returns false,
+/// the macro `stream` is returned unchanged.
+/// This will always happen if the `macro-expander/force-disable` feature is set.
+///
+/// If `stream` contains a [`compile_error!`], it is returned unchanged and no file is written,
+/// as that would discard the span information of the error.
+///
+/// The file is placed in the build output directory of the `expander` crate,
+/// within cargo's `target` directory.
+///
+/// # Panics
+/// Panics if the file cannot be written,
+/// or if `MACRO_EXPANDER_DEBUG` is set to a value that is not valid unicode.
+///
+/// Like any use of [`proc_macro::TokenStream`],
+/// this panics if called outside of a procedural macro.
+/// Use [`debug_expand_simple2`] if you need that.
 pub fn debug_expand_simple(macro_name: &str, stream: TokenStream) -> TokenStream {
     debug_expand_simple2(macro_name, stream.into()).into()
 }
 
+/// Same as [`debug_expand_simple`], but for [`proc_macro2::TokenStream`] rather than [`proc_macro::TokenStream`].
+///
+/// Unlike [`debug_expand_simple`], this can also be called outside of a procedural macro,
+/// such as from a unit test.
+///
+/// # Panics
+/// Panics if the file cannot be written,
+/// or if `MACRO_EXPANDER_DEBUG` is set to a value that is not valid unicode.
 pub fn debug_expand_simple2(macro_name: &str, stream: TokenStream2) -> TokenStream2 {
     // this is not generic as that would involve monomorphization in each downstream crate
-    // along with unnecessary code duplication (logic is the same for both stream times)
+    // along with unnecessary code duplication (logic is the same for both stream types)
     // instead we convert input/output to proc_macro2::TokenStream
     //
     // TODO: Add option to support expressions (right now expander always uses semicolon after include)
@@ -27,7 +65,7 @@ pub fn debug_expand_simple2(macro_name: &str, stream: TokenStream2) -> TokenStre
 
 /// Determine if the token stream invokes [`std::compile_error!`].
 ///
-/// If there is a compile error, expanding to a file is in actually harms debugging
+/// If there is a compile error, expanding to a file actually harms debugging
 /// by discarding span information.
 ///
 /// TODO: Should we override this?
@@ -55,6 +93,23 @@ fn has_compile_error(x: TokenStream2) -> bool {
 
 const CONTROL_ENV_VAR: &str = "MACRO_EXPANDER_DEBUG";
 
+/// Check if debug expansion is enabled for the macro named `macro_name`.
+///
+/// This is used by [`debug_expand_simple`] to decide whether to write its output to a file.
+///
+/// If the `macro-expander/enable` feature is active,
+/// the result is determined by the `MACRO_EXPANDER_DEBUG` environment variable.
+/// See [`#[debug_expand_macro]`](crate::debug_expand_macro#macro_expander_debug) macro for its syntax.
+/// If the `force-disable` feature is active, this always returns `false`.
+///
+/// On nightly Rust, the environment variable is read using [`proc_macro::tracked::env_var`]
+/// when called from a procedural macro,
+/// so changing it causes the crate using the macro to be recompiled.
+///
+/// [`proc_macro::tracked::env_var`]: https://doc.rust-lang.org/nightly/proc_macro/tracked/fn.env_var.html
+///
+/// # Panics
+/// Panics if `MACRO_EXPANDER_DEBUG` is set to a value that is not valid unicode.
 pub fn is_macro_debug_enabled(macro_name: &str) -> bool {
     if cfg!(feature = "force-disable") {
         return false;
