@@ -40,7 +40,7 @@ enable = [
     "dep:nanorand",
     "dep:proc-macro2",
     "macro",
-    "macro-expander-macro/enable",
+    "macro-expander-macro?/enable",
 ]
 # Forcibly disable expansion,
 # regardless of what the environment variables say.

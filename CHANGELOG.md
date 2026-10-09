@@ -19,6 +19,7 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 - Improve crate-level docs by syncing with `README.md` (qwokxwsr)
 
 ### Fixed
+- Fix optional dependency feature resolution on Cargo 1.64 (tmvrzrlo)
 - Correct LICENSE file to match README & Cargo.toml (qtssxqyq)
   - Accidentally used the license file from [unicodeit.rs](https://github.com/Techcable/unicodeit.rs/blob/v0.2.1/LICENSE.md) before this.
 - Export the `#[debug_expand_macro]` fallback from `macro_expander` (mxnnnszo)
