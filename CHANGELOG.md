@@ -12,6 +12,9 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 
 ## Unreleased
 
+### Added
+- Improve crate-level docs by syncing with `README.md` (qwokxwsr)
+
 ### Fixed
 - Correct LICENSE file to match README & Cargo.toml (qtssxqyq)
   - Accidentally used the license file from [unicodeit.rs](https://github.com/Techcable/unicodeit.rs/blob/v0.2.1/LICENSE.md) before this.
