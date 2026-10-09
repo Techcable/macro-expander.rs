@@ -8,6 +8,8 @@ description = "Proc macro for the macro-expander crate"
 readme.workspace = true
 repository.workspace = true
 license.workspace = true
+keywords.workspace = true
+categories.workspace = true
 
 [lib]
 proc-macro = true

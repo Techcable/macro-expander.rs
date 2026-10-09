@@ -8,6 +8,8 @@ description = "A proc macro for debugging proc macros, placing output in a file 
 readme.workspace = true
 repository.workspace = true
 license.workspace = true
+keywords.workspace = true
+categories.workspace = true
 
 [dependencies]
 nanorand = { version = "0.8", optional = true }
