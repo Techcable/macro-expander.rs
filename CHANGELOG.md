@@ -12,6 +12,10 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 
 ## Unreleased
 
+### Fixed
+- Correct LICENSE file to match README & Cargo.toml (qtssxqyq)
+  - Accidentally used the license file from [unicodeit.rs](https://github.com/Techcable/unicodeit.rs/blob/v0.2.1/LICENSE.md) before this.
+
 ## 0.1.0 - 2026-04-16
 Initial release.
 
