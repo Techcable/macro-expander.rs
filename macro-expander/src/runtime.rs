@@ -119,12 +119,20 @@ pub fn is_macro_debug_enabled(macro_name: &str) -> bool {
             panic!("Expected environment variable {CONTROL_ENV_VAR:?} to be unicode!")
         }
         Err(std::env::VarError::NotPresent) => false,
-        Ok("*") => true,
-        Ok(s) => {
-            if let Ok(num) = s.parse::<i64>() {
+        Ok(setting) => is_enabled_by_setting(setting, macro_name),
+    }
+}
+
+/// Check if the value of `MACRO_EXPANDER_DEBUG` enables debug expansion for the specified macro.
+fn is_enabled_by_setting(setting: &str, macro_name: &str) -> bool {
+    match setting {
+        "*" | "true" => true,
+        "false" | "" => false,
+        _ => {
+            if let Ok(num) = setting.parse::<i64>() {
                 num > 0
             } else {
-                s.split(',').any(|part| macro_name == part)
+                setting.split(',').any(|part| macro_name == part)
             }
         }
     }
@@ -170,4 +178,29 @@ fn base36(mut x: u64) -> String {
     }
     chars.reverse();
     String::from_utf8(chars).expect("ascii conversion failed")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::is_enabled_by_setting;
+
+    #[test]
+    fn setting_syntax() {
+        for (setting, expected) in [
+            ("*", true),
+            ("true", true),
+            ("false", false),
+            ("1", true),
+            ("0", false),
+            ("-1", false),
+            ("foo", true),
+            ("bar,foo", true),
+            ("bar", false),
+            ("bar, foo", false),
+            ("", false),
+            ("True", false),
+        ] {
+            assert_eq!(is_enabled_by_setting(setting, "foo"), expected, "setting: {setting:?}");
+        }
+    }
 }

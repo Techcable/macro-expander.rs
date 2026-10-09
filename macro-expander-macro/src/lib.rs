@@ -53,14 +53,16 @@ use proc_macro::TokenStream;
 /// | Value                   | Effect                                                      |
 /// |-------------------------|-------------------------------------------------------------|
 /// | unset                   | Disabled.                                                   |
-/// | `*`                     | Enabled for all macros.                                     |
+/// | `*` or `true`           | Enabled for all macros.                                     |
+/// | `false` or empty        | Disabled.                                                   |
 /// | an integer, e.g. `1`    | Enabled for all macros if positive, disabled otherwise.     |
 /// | `name1,name2,...`       | Enabled only for the macros with the listed names.          |
 ///
 /// The name of a macro is the name of the function this attribute is applied to
 /// (`derive_visit` in the example above), not the name of the derived trait or invoked macro.
 /// Names must match exactly; whitespace around the commas is not trimmed.
-/// Any other value, such as `true` or the empty string,
+/// `true` and `false` must be lowercase.
+/// Any other value, such as `yes`,
 /// is interpreted as a list of names and so usually disables expansion.
 /// A value that is not valid unicode causes a panic.
 ///

@@ -16,6 +16,8 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 - Increased MSRV to 1.64 (xlonorrl)
 
 ### Added
+- Accept `true` and `false` as values of `MACRO_EXPANDER_DEBUG` (ptyqomtq)
+  - The empty string is also interpreted as `false`
 - Improve crate-level docs by syncing with `README.md` (qwokxwsr)
 - Add docs to all public functions in `macro-expander` (yxuyxklx)
   - Set `#[deny(missing_docs)]` so we don't forget docs in the future
