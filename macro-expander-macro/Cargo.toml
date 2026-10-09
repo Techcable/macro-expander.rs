@@ -1,32 +1,25 @@
 [package]
 name = "macro-expander-macro"
 version.workspace = true
-description = "Proc macro for the macro-expander crate"
 authors.workspace = true
-rust-version.workspace = true
-repository.workspace = true
-readme.workspace = true
 edition.workspace = true
+rust-version.workspace = true
+description = "Proc macro for the macro-expander crate"
+readme.workspace = true
+repository.workspace = true
 license.workspace = true
 
 [lib]
 proc-macro = true
 
-[features]
-# Enable macro functionality.
-#
-# If this feature is disabled, the macro doesn't validate its input.
-enable = [
-    "dep:proc-macro2",
-    "dep:quote",
-    "dep:syn",
-    "dep:syn-mid"
-]
-
 [dependencies]
 proc-macro2 = { version = "1", optional = true }
 quote = { version = "1", optional = true }
 syn = { version = "2", optional = true }
-syn-mid = { version = "0.6", optional = true, features = ["clone-impls"] }
+syn-mid = { version = "0.6", features = ["clone-impls"], optional = true }
 
-
+[features]
+# Enable macro functionality.
+#
+# If this feature is disabled, the macro doesn't validate its input.
+enable = ["dep:proc-macro2", "dep:quote", "dep:syn", "dep:syn-mid"]

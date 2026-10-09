@@ -1,32 +1,13 @@
 [package]
 name = "macro-expander"
 version.workspace = true
-description = "A proc macro for debugging proc macros, placing output in a file to give precise errors"
+authors.workspace = true
 edition.workspace = true
 rust-version.workspace = true
-authors.workspace = true
-repository.workspace = true
+description = "A proc macro for debugging proc macros, placing output in a file to give precise errors"
 readme.workspace = true
+repository.workspace = true
 license.workspace = true
-
-[features]
-default = ["macro"]
-macro = ["dep:macro-expander-macro"]
-# Allow expansion to proceed if the environment variable permits it.
-# Means the macro depends on the `expander` and `syn` crates.
-#
-# If this feature is not added, the crate has no dependencies
-# and the macro does not validate its input.
-enable = [
-    "macro",
-    "macro-expander-macro/enable",
-    "dep:proc-macro2",
-    "dep:expander",
-    "dep:nanorand",
-]
-# Forcibly disable expansion,
-# regardless of what the environment variables say.
-force-disable = []
 
 [dependencies]
 nanorand = { version = "0.8", optional = true }
@@ -38,9 +19,31 @@ default-features = false
 optional = true
 
 [dependencies.macro-expander-macro]
-version = "0.1"
 path = "../macro-expander-macro"
+version = "0.1"
 optional = true
 
 [build-dependencies]
 autocfg = "1.5"
+
+[features]
+default = ["macro"]
+# Allow expansion to proceed if the environment variable permits it.
+# Means the macro depends on the `expander` and `syn` crates.
+#
+# If this feature is not added, the crate has no dependencies
+# and the macro does not validate its input.
+enable = [
+    "dep:expander",
+    "dep:nanorand",
+    "dep:proc-macro2",
+    "macro",
+    "macro-expander-macro/enable",
+]
+# Forcibly disable expansion,
+# regardless of what the environment variables say.
+force-disable = []
+macro = ["dep:macro-expander-macro"]
+
+[lints]
+workspace = true

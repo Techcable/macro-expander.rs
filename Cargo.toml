@@ -1,12 +1,12 @@
 [workspace]
 resolver = "2"
-members = ["macro-expander", "macro-expander-macro", "example-macro"]
+members = ["example-macro", "macro-expander", "macro-expander-macro"]
 
 [workspace.package]
 version = "0.1.0"
+authors = ["Techcable <git@techcable.net>"]
 edition = "2021"
 rust-version = "1.56"
-authors = ["Techcable <git@techcable.net>"]
-repository = "https://github.com/Techcable/macro-expander.rs"
 readme = "README.md"
+repository = "https://github.com/Techcable/macro-expander.rs"
 license = "MIT OR Apache-2.0"

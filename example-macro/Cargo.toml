@@ -1,20 +1,20 @@
 [package]
 name = "example-macro"
-description = "Example of using `macro-expander`"
 version = "0.0.0"
-publish = false
-edition = "2024"
 authors.workspace = true
-repository.workspace = true
+edition = "2024"
+description = "Example of using `macro-expander`"
 readme.workspace = true
+repository.workspace = true
+publish = false
 
 [lib]
 proc-macro = true
 
 [dependencies]
-syn = "2"
 proc-macro2 = "1"
 quote = "1"
+syn = "2"
 
 [dependencies.macro-expander]
 path = "../macro-expander"
