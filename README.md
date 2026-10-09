@@ -12,7 +12,7 @@ placing output in a file to give precise errors.
 
 Currently implemented in terms of the [`expander` crate], where the idea originated from.
 
-[expander]: https://github.com/drahnr/expander
+[`expander` crate]: https://github.com/drahnr/expander
 
 ## Example
 Add the following dependency to your proc macro crate.
