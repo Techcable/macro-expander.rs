@@ -12,6 +12,11 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 
 ## Unreleased
 
+### Changed
+- Upgrade to syn v3 (zzxuulym)
+  - Not a breaking change since syn is an internal dependency
+- Increase MSRV to 1.71, as required by syn v3 (zzxuulym)
+
 ## v0.1.2 - 2026-10-08
 Lock `macro-expander-macro` version to `macro-expander`.
 

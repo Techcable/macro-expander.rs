@@ -11,9 +11,10 @@ edition = "2021"
 # 1.64 - workspace.package
 # 1.65 - expander@2.2.1
 # 1.68 - sparse index
+# 1.71 - syn@3
 #
 # keep this in sync with CI
-rust-version = "1.64"
+rust-version = "1.71"
 readme = "README.md"
 repository = "https://github.com/Techcable/macro-expander.rs"
 license = "MIT OR Apache-2.0"
