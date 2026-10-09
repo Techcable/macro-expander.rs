@@ -4,7 +4,7 @@ members = ["example-macro", "macro-expander", "macro-expander-macro"]
 
 [workspace.package]
 # Update pinned dependency version when this changes
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Techcable <git@techcable.net>"]
 edition = "2021"
 # 1.56 - 2021 edition
@@ -28,7 +28,7 @@ categories = [
 path = "./macro-expander-macro"
 # the macro and runtime versions need to change in lockstep,
 # so that the macro can safely rely on runtime internals
-version = "=0.1.1"
+version = "=0.1.2"
 
 [workspace.lints.clippy]
 ## groups ##

@@ -12,6 +12,9 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 
 ## Unreleased
 
+## v0.1.2 - 2026-10-08
+Lock `macro-expander-macro` version to `macro-expander`.
+
 ### Fixed
 - Lock `macro-expander-macro` version to `macro-expander`,
   ensuring the macro can safely access the runtime internals. (pvtmpwtv)
