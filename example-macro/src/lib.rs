@@ -4,11 +4,12 @@ use macro_expander::debug_expand_macro;
 use proc_macro2::TokenStream;
 use quote::{quote, quote_spanned};
 
+use syn::spanned::Spanned;
+
 #[proc_macro]
 #[debug_expand_macro]
 pub fn awesome_type(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = TokenStream::from(input);
-    use syn::spanned::Spanned;
     if !input.is_empty() {
         return quote_spanned!(input.span() => compile_error!("Cannot handle arguments!!")).into();
     }

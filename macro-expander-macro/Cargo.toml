@@ -25,3 +25,6 @@ syn-mid = { version = "0.6", features = ["clone-impls"], optional = true }
 #
 # If this feature is disabled, the macro doesn't validate its input.
 enable = ["dep:proc-macro2", "dep:quote", "dep:syn", "dep:syn-mid"]
+
+[lints]
+workspace = true

@@ -69,7 +69,7 @@ pub fn is_macro_debug_enabled(macro_name: &str) -> bool {
             if let Ok(num) = s.parse::<i64>() {
                 num > 0
             } else {
-                s.split(",").any(|part| macro_name == part)
+                s.split(',').any(|part| macro_name == part)
             }
         }
     }
@@ -97,16 +97,17 @@ fn rand_uid() -> String {
     base36(nanorand::tls_rng().generate())
 }
 fn base36(mut x: u64) -> String {
-    const RADIX: u64 = 36;
+    const RADIX: u32 = 36;
     const MAX_LEN: usize = 13;
     let mut chars = Vec::<u8>::new();
     while x != 0 {
-        let digit = (x % RADIX) as u32;
-        let digit = char::from_digit(digit, RADIX as u32).unwrap();
+        #[allow(clippy::cast_possible_truncation)] // RADIX is small, so modulo cannot overflow
+        let digit = (x % (RADIX as u64)) as u32;
+        let digit = char::from_digit(digit, RADIX).unwrap();
         assert!(digit.is_ascii_alphanumeric());
         let digit = digit.to_ascii_uppercase();
         chars.push(digit as u8);
-        x /= RADIX;
+        x /= RADIX as u64;
     }
     assert!(chars.len() <= MAX_LEN);
     while chars.len() < MAX_LEN {
