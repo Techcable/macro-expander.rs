@@ -12,6 +12,9 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 
 ## Unreleased
 
+## v0.1.3 - 2026-10-08
+Upgrade to syn v3.
+
 ### Changed
 - Upgrade to syn v3 (zzxuulym)
   - Not a breaking change since syn is an internal dependency
