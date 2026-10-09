@@ -12,6 +12,9 @@ Most changes include the relevant [jj](https://jj-vcs.dev) change ids in parens.
 
 ## Unreleased
 
+## v0.1.1 - 2026-10-08
+Improve documentation and fix fallback macro.
+
 ### Changed
 - Increased MSRV to 1.64 (xlonorrl)
 
