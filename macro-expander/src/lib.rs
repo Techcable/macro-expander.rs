@@ -22,7 +22,7 @@
 //! ```
 //!
 //! Then if your macro gives errors you can set the environment variable `MACRO_EXPANDER_DEBUG=1`,
-//! and errors will point to a specific location in a temporary file rather than to the macro invocation.
+//! and errors will point to a specific location in a temporary build file rather than to the macro invocation.
 //!
 //! If your macro gives a [`compile_error!`], no file is actually used,
 //! as that could make error messages lose span information.

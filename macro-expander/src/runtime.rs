@@ -8,7 +8,7 @@ use proc_macro2::TokenStream as TokenStream2;
 /// This is what [`#[debug_expand_macro]`](crate::debug_expand_macro) calls on the result of the function.
 ///
 /// If [`is_macro_debug_enabled`] returns `true` for `macro_name`,
-/// `stream` is written to a temporary file and an `include!` of that file is returned.
+/// `stream` is written to a temporary build file and an `include!` of that file is returned.
 /// Compiler errors in the generated code then point to a line in that file
 /// rather than somewhere in the macro invocation.
 /// This will only happen if the `MACRO_EXPANDER_DEBUG` environment variable enables debug expansion
